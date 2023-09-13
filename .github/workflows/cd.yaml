@@ -51,11 +51,14 @@ jobs:
       - name: Docker configuration
         run: |-
           echo ${{steps.auth.outputs.access_token}} | docker login -u oauth2accesstoken --password-stdin https://$GAR_LOCATION-docker.pkg.dev
+
+      - name: Print auth
+        run: |-
+          gcloud auth list
+
       # Get the GKE credentials so we can deploy to the cluster
       - name: Set up GKE credentials
         uses: google-github-actions/get-gke-credentials@v1
-        run: |-
-          gcloud auth list
         with:
           cluster_name: ${{ env.GKE_CLUSTER }}
           location: ${{ env.GKE_ZONE }}
