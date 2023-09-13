@@ -39,22 +39,18 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      # Configure Workload Identity Federation and generate an access token.
-      - id: 'auth'
-        name: 'Authenticate to Google Cloud'
-        uses: google-github-actions/auth@v1
-        with:
-          token_format: 'access_token'
-          workload_identity_provider: 'projects/598451321793/locations/global/workloadIdentityPools/my-pool/providers/my-provider'
-          service_account: 'cicd-sa@kubernetes-ex-396916.iam.gserviceaccount.com'
+#      # Configure Workload Identity Federation and generate an access token.
+#      - id: 'auth'
+#        name: 'Authenticate to Google Cloud'
+#        uses: google-github-actions/auth@v1
+#        with:
+#          token_format: 'access_token'
+#          workload_identity_provider: 'projects/598451321793/locations/global/workloadIdentityPools/my-pool/providers/my-provider'
+#          service_account: 'cicd-sa@kubernetes-ex-396916.iam.gserviceaccount.com'
 
       - name: Docker configuration
         run: |-
           echo ${{steps.auth.outputs.access_token}} | docker login -u oauth2accesstoken --password-stdin https://$GAR_LOCATION-docker.pkg.dev
-
-      - name: Print auth
-        run: |-
-          gcloud auth list
 
       # Get the GKE credentials so we can deploy to the cluster
       - name: Set up GKE credentials
