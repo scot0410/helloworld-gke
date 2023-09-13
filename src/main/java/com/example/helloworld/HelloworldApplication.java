@@ -18,6 +18,11 @@ public class HelloworldApplication {
 		String hello() { 
 			return "Hello " + target + "!";
 		}
+
+		@GetMapping("/test")
+		String redeploy() {
+			return "app was re-deployed!";
+		}
 	}
 
 	public static void main(String[] args) {
