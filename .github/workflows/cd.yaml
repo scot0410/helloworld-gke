@@ -103,7 +103,8 @@ jobs:
         run: |-
           echo pkg.dev/PROJECT_ID/IMAGE:TAG
           ./kustomize edit set image pkg.dev/PROJECT_ID/IMAGE:TAG=pkg.dev/$PROJECT_ID/$IMAGE:$GITHUB_SHA
-          ./kustomize build . | kubectl apply -f -
+#          ./kustomize build . | kubectl apply -f -
           cat kustomization.yaml
+          kubectl apply -k 
           kubectl rollout status deployment/$DEPLOYMENT_NAME
           kubectl get services -o wide
