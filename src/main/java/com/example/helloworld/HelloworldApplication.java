@@ -23,6 +23,11 @@ public class HelloworldApplication {
 		String redeploy() {
 			return "app was re-deployed again!";
 		}
+
+		@GetMapping("/testing")
+		String redeployagain() {
+			return "app was re-deployed again! look!";
+		}
 	}
 
 	public static void main(String[] args) {
