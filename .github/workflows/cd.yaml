@@ -64,13 +64,13 @@ jobs:
           cluster_name: ${{ env.GKE_CLUSTER }}
           location: ${{ env.GKE_ZONE }}
 
-#      - id: 'meta'
-#        name: 'Extract Docker metadata'
-#        uses: docker/metadata-action@v4
-#        with:
-#          images: ${{ env.REGISTRY }}/${{ env.PROJECT_ID }}/${{ env.IMAGE_NAME }}
-#          tags: |
-#            type=semver,pattern={{raw}}
+      - id: 'meta'
+        name: 'Extract Docker metadata'
+        uses: docker/metadata-action@v4
+        with:
+          images: ${{ env.GAR_LOCATION }}-${{ env.REGISTRY }}/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.IMAGE }}
+          tags: |
+            type=semver,pattern={{raw}}
 #
 #      - name: 'Build and push'
 #        uses: docker/build-push-action@v4
