@@ -96,7 +96,7 @@ jobs:
       # Print versions
       - name: Version
         run: |-
-          kubectl version --short --client
+          kubectl version
 
       # Deploy the Docker image to the GKE cluster
       - name: Deploy
