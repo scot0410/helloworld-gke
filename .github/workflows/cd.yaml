@@ -24,7 +24,7 @@ env:
   DEPLOYMENT_NAME: helloworld-gke # TODO: update to deployment name
   REPOSITORY:  hello-repo # TODO: update to Artifact Registry docker repository
   IMAGE: helloworld-gke
-  REGISTRY: gcr.io
+  REGISTRY: docker.pkg.dev
   CONTAINER_NAME: hello-app
 
 jobs:
@@ -91,7 +91,7 @@ jobs:
       # Push the Docker image to Google Artifact Registry
       - name: Publish
         run: |-
-          docker push "$GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE:$GITHUB_SHA"
+          docker push "$GAR_LOCATION-$REGISTRY/$PROJECT_ID/$REPOSITORY/$IMAGE:$GITHUB_SHA"
 
       # Print versions
       - name: Version
@@ -104,7 +104,7 @@ jobs:
           # replacing the image name in the k8s template
           set -x
           set -e
-          kustomize edit set image $GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE=$GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE:$GITHUB_SHA
+          kustomize edit set image $GAR_LOCATION-$REGISTRY/$PROJECT_ID/$REPOSITORY/$IMAGE=$GAR_LOCATION-$REGISTRY/$PROJECT_ID/$REPOSITORY/$IMAGE:$GITHUB_SHA
           kustomize build . > manifest.yaml
           cat kustomization.yaml
           cat manifest.yaml
