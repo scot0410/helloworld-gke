@@ -25,6 +25,7 @@ env:
   REPOSITORY:  hello-repo # TODO: update to Artifact Registry docker repository
   IMAGE: helloworld-gke
   REGISTRY: gcr.io
+  CONTAINER_NAME: hello-app
 
 jobs:
   setup-build-publish-deploy:
@@ -101,8 +102,10 @@ jobs:
       # Deploy the Docker image to the GKE cluster
       - name: Deploy
         run: |-
-          ./kustomize edit set image pkg.dev/PROJECT_ID/IMAGE:TAG=pkg.dev/$PROJECT_ID/$IMAGE:$GITHUB_SHA
-          ./kustomize build . | kubectl apply -f -
+          ./kustomize edit set image $CONTAINER_NAME=pkg.dev/$PROJECT_ID/$IMAGE:$GITHUB_SHA
+          ./kustomize build . > plan.yaml
           cat kustomization.yaml
+          cat plan.yaml
+          kubectl apply -f plan.yaml
           kubectl rollout status deployment/$DEPLOYMENT_NAME
           kubectl get services -o wide
