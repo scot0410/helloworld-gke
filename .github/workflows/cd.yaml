@@ -73,14 +73,14 @@ jobs:
           images: ${{ env.GAR_LOCATION }}-${{ env.REGISTRY }}/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.IMAGE }}
           tags: |
             type=semver,pattern={{raw}}
-#
-#      - name: Build and push Docker image
-#        uses: docker/build-push-action@v4
-#        with:
-#          context: .
-#          push: ${{ github.event.base_ref =='refs/heads/main' && github.ref_type == 'tag' && !startsWith(github.ref, 'refs/tags/v0.')}}
-#          tags: ${{ steps.metadata.outputs.tags }}
-#          labels: ${{ steps.metadata.outputs.labels }}
+
+      - name: 'Build and push'
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          push: ${{ github.ref == 'refs/heads/main' }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
 
       # Build the Docker image
       - name: Build
