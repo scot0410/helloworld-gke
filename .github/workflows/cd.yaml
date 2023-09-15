@@ -93,16 +93,16 @@ jobs:
         run: |-
           echo "tag ${{github.ref_name}}"
 
-      # # Deploy the Docker image to the GKE cluster
-      # - name: Deploy
-      #   run: |-
-      #     # replacing the image name in the k8s template
-      #     set -x
-      #     set -e
-      #     kustomize edit set image $GAR_LOCATION-$REGISTRY/$PROJECT_ID/$REPOSITORY/$IMAGE=$GAR_LOCATION-$REGISTRY/$PROJECT_ID/$REPOSITORY/$IMAGE:$GITHUB_SHA
-      #     kustomize build . > manifest.yaml
-      #     cat kustomization.yaml
-      #     cat manifest.yaml
-      #     kubectl apply -f manifest.yaml
-      #     kubectl rollout status deployment/$DEPLOYMENT_NAME
-      #     kubectl get services -o wide
+     # Deploy the Docker image to the GKE cluster
+      - name: Deploy
+        run: |-
+        # replacing the image name in the k8s template
+          set -x
+          set -e
+          kustomize edit set image $GAR_LOCATION-$REGISTRY/$PROJECT_ID/$REPOSITORY/$IMAGE=$GAR_LOCATION-$REGISTRY/$PROJECT_ID/$REPOSITORY/$IMAGE:${{github.ref_name}}
+          kustomize build . > manifest.yaml
+          cat kustomization.yaml
+          cat manifest.yaml
+          kubectl apply -f manifest.yaml
+          kubectl rollout status deployment/$DEPLOYMENT_NAME
+          kubectl get services -o wide
