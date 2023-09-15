@@ -80,6 +80,7 @@ jobs:
       - name: 'Build and push'
         uses: docker/build-push-action@v4
         with:
+          context: .
           push: ${{ github.ref == 'refs/heads/main' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
@@ -91,7 +92,7 @@ jobs:
 #            --tag "$GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE:$GITHUB_SHA" \
 #            --build-arg GITHUB_SHA="$GITHUB_SHA" \
 #            --build-arg GITHUB_REF="$GITHUB_REF" \
-            .
+
       # Push the Docker image to Google Artifact Registry
       - name: Publish
         run: |-
