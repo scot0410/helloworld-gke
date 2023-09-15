@@ -89,7 +89,7 @@ jobs:
           set -x
           set -e
           kustomize edit set image $GAR_LOCATION-$REGISTRY/$PROJECT_ID/$REPOSITORY/$IMAGE=$GAR_LOCATION-$REGISTRY/$PROJECT_ID/$REPOSITORY/$IMAGE:${{github.ref_name}}
-          kustomize build /kube > manifest.yaml
+          kustomize build ./kube > manifest.yaml
           cat kustomization.yaml
           cat manifest.yaml
           kubectl apply -f manifest.yaml
