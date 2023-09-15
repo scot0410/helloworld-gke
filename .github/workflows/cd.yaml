@@ -35,9 +35,9 @@ jobs:
         name: 'Authenticate to Google Cloud'
         uses: google-github-actions/auth@v1
         with:
-          token_format: 'access_token'
-          workload_identity_provider: 'projects/598451321793/locations/global/workloadIdentityPools/my-pool/providers/my-provider'
-          service_account: 'cicd-sa@kubernetes-ex-396916.iam.gserviceaccount.com'
+          token_format: access_token
+          workload_identity_provider: projects/598451321793/locations/global/workloadIdentityPools/my-pool/providers/my-provider
+          service_account: cicd-sa@${{ PROJECT_ID }}.iam.gserviceaccount.com
 
       - name: Login to GAR
         uses: docker/login-action@v3
