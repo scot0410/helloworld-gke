@@ -14,7 +14,6 @@ name: Build and Deploy to GKE
 
 on:
   push:
-    branches: [ "main" ]
     tags:
       - 'v[0-9]+.[0-9]+.[0-9]+'
 
@@ -93,10 +92,10 @@ jobs:
 #            --build-arg GITHUB_SHA="$GITHUB_SHA" \
 #            --build-arg GITHUB_REF="$GITHUB_REF" \
 
-      # Push the Docker image to Google Artifact Registry
-      - name: Publish
-        run: |-
-          docker push "$GAR_LOCATION-$REGISTRY/$PROJECT_ID/$REPOSITORY/$IMAGE:$GITHUB_SHA"
+#      # Push the Docker image to Google Artifact Registry
+#      - name: Publish
+#        run: |-
+#          docker push "$GAR_LOCATION-$REGISTRY/$PROJECT_ID/$REPOSITORY/$IMAGE:$GITHUB_SHA"
 
       # Print versions
       - name: Version
