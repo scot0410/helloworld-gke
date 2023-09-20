@@ -93,5 +93,5 @@ jobs:
           kustomize build . > manifest.yaml
           cat manifest.yaml
           kubectl apply -f manifest.yaml
-          kubectl rollout status deployment/$DEPLOYMENT_NAME
+          kubectl rollout status deployment/$DEPLOYMENT_NAME --namespace=test
           kubectl get services -o wide
