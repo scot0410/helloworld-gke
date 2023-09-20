@@ -17,7 +17,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: helloworld-gke
-  namespace: test
 spec:
   replicas: 1
   selector:
