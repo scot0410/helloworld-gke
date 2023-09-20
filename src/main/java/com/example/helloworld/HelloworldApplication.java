@@ -31,7 +31,7 @@ public class HelloworldApplication {
 
 		@GetMapping("/testingv2")
 		String redeployagainv2() {
-			return "app was re-deployed again";
+			return "app was re-deployed again now";
 		}
 	}
 
