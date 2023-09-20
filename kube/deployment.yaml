@@ -30,6 +30,7 @@ spec:
       containers:
         - name: hello-app
           image: us-central1-docker.pkg.dev/kubernetes-ex-396916/hello-repo/helloworld-gke:latest
+          imagePullPolicy: Always
           ports:
             - containerPort: 8080
           env:
