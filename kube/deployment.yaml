@@ -17,6 +17,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: helloworld-gke
+  namespace: test
 spec:
   replicas: 1
   selector:
@@ -29,22 +30,37 @@ spec:
     spec:
       containers:
         - name: hello-app
-          # Replace $LOCATION with your Artifact Registry location (e.g., us-west1).
-          # Replace $GCLOUD_PROJECT with your project ID.
-          image: us-central1-docker.pkg.dev/kubernetes-ex-396916/hello-repo/helloworld-gke:2aec730df70b047aa1cde0c5b2b7321a938dbd13
-          # This app listens on port 8080 for web traffic by default.
-          ports:
-            - containerPort: 8080
-          env:
-            - name: PORT
-              value: "8080"
-          resources:
-            requests:
-              memory: "1Gi"
-              cpu: "500m"
-              ephemeral-storage: "1Gi"
-            limits:
-              memory: "1Gi"
-              cpu: "500m"
-              ephemeral-storage: "1Gi"
+          image: us-central1-docker.pkg.dev/kubernetes-ex-396916/hello-repo/helloworld-gke:latest
+    imagePullPolicy: Always
+    livenessProbe:
+      failureThreshold: 6
+      httpGet:
+        path: /actuator/health
+        port: 8080
+      initialDelaySeconds: 35
+      periodSeconds: 20
+    readinessProbe:
+      failureThreshold: 6
+      httpGet:
+        path: /actuator/health
+        port: 8080
+      initialDelaySeconds: 20
+      periodSeconds: 10
+    ports:
+      - containerPort: 8080
+    env:
+      - name: PORT
+        value: "8080"
+    resources:
+      requests:
+        memory: "1Gi"
+        cpu: "500m"
+        ephemeral-storage: "1Gi"
+      limits:
+        memory: "1Gi"
+        cpu: "500m"
+        ephemeral-storage: "1Gi"
+    securityContext:
+      allowPrivilegeEscalation: false
+      readOnlyRootFilesystem: true
 ---
