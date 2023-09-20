@@ -92,9 +92,7 @@ jobs:
           kustomize edit set image $GAR_LOCATION-$REGISTRY/$PROJECT_ID/$REPOSITORY/$IMAGE=$GAR_LOCATION-$REGISTRY/$PROJECT_ID/$REPOSITORY/$IMAGE:${{github.ref_name}}
           kustomize build . > manifest.yaml
           cat kustomization.yaml
-          echo "--------"
           cat manifest.yaml
-          echo "--------"
-          kubectl apply -f manifest.yaml
-          kubectl rollout status deployment/$DEPLOYMENT_NAME 
+          kubectl apply -f manifest.yaml --namespace=test
+          kubectl rollout status deployment/$DEPLOYMENT_NAME --namespace=test
           kubectl get services -o wide
