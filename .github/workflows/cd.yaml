@@ -11,7 +11,7 @@ env:
   GKE_CLUSTER: helloworld-gke # TODO: update to cluster name
   GKE_ZONE: us-central1   # TODO: update to cluster zone
   DEPLOYMENT_NAME: helloworld-gke # TODO: update to deployment name
-  REPOSITORY:  hello-repo-test # TODO: update to Artifact Registry docker repository
+  REPOSITORY:  hello-repo # TODO: update to Artifact Registry docker repository
   IMAGE: helloworld-gke
   REGISTRY: docker.pkg.dev
   CONTAINER_NAME: hello-app
@@ -46,12 +46,12 @@ jobs:
           username: oauth2accesstoken
           password: ${{ steps.auth.outputs.access_token }}
 
-      # Get the GKE credentials so we can deploy to the cluster
-      - name: Set up GKE credentials
-        uses: google-github-actions/get-gke-credentials@v1
-        with:
-          cluster_name: ${{ env.GKE_CLUSTER }}
-          location: ${{ env.GKE_ZONE }}
+#      # Get the GKE credentials so we can deploy to the cluster
+#      - name: Set up GKE credentials
+#        uses: google-github-actions/get-gke-credentials@v1
+#        with:
+#          cluster_name: ${{ env.GKE_CLUSTER }}
+#          location: ${{ env.GKE_ZONE }}
 
       - id: 'meta'
         name: 'Extract Docker metadata'
