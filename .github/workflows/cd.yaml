@@ -11,7 +11,7 @@ env:
   GKE_CLUSTER: helloworld-gke # TODO: update to cluster name
   GKE_ZONE: us-central1   # TODO: update to cluster zone
   DEPLOYMENT_NAME: helloworld-gke # TODO: update to deployment name
-  REPOSITORY:  hello-repo # TODO: update to Artifact Registry docker repository
+  REPOSITORY:  hello-repo-test # TODO: update to Artifact Registry docker repository
   IMAGE: helloworld-gke
   REGISTRY: docker.pkg.dev
   CONTAINER_NAME: hello-app
