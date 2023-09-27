@@ -33,6 +33,11 @@ public class HelloworldApplication {
 		String redeployagainv2() {
 			return "app was re-deployed again now";
 		}
+
+		@GetMapping("/testingv3")
+		String redeployagainv3() {
+			return "app was re-deployed again now right now";
+		}
 	}
 
 	public static void main(String[] args) {
